@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.vw.odin.data.core.CoreEntity;
 import org.vw.odin.data.core.Mobility;
+import org.vw.odin.model.impl.Climate;
 import org.vw.odin.model.impl.Pluviometry;
 import org.vw.odin.model.impl.SoilState;
 import org.vw.odin.model.impl.Temperature;
@@ -15,13 +16,14 @@ import org.vw.odin.model.impl.Weather;
 
 public class CoreData {
 	
-	private static CoreDataHolder<Terrain> TERRAINS = new CoreDataHolder<Terrain>();	
-	private static CoreDataHolder<Vegetation> VEGETATIONS = new CoreDataHolder<Vegetation>();
-	private static CoreDataHolder<TerrainFeatureType> TERRAIN_FEATURE_TYPES = new CoreDataHolder<TerrainFeatureType>();
-	private static CoreDataHolder<SoilState> SOIL_STATES = new CoreDataHolder<SoilState>();
-	private static CoreDataHolder<Temperature> TEMPERATURES = new CoreDataHolder<Temperature>();
-	private static CoreDataHolder<Weather> WEATHERS = new CoreDataHolder<Weather>();
-	private static CoreDataHolder<Pluviometry> PLUVIOMETRIES = new CoreDataHolder<Pluviometry>();
+	public static CoreDataHolder<Terrain> TERRAINS = new CoreDataHolder<Terrain>();	
+	public static CoreDataHolder<Vegetation> VEGETATIONS = new CoreDataHolder<Vegetation>();
+	public static CoreDataHolder<TerrainFeatureType> TERRAIN_FEATURE_TYPES = new CoreDataHolder<TerrainFeatureType>();
+	public static CoreDataHolder<SoilState> SOIL_STATES = new CoreDataHolder<SoilState>();
+	public static CoreDataHolder<Temperature> TEMPERATURES = new CoreDataHolder<Temperature>();
+	public static CoreDataHolder<Weather> WEATHERS = new CoreDataHolder<Weather>();
+	public static CoreDataHolder<Pluviometry> PLUVIOMETRIES = new CoreDataHolder<Pluviometry>();
+	public static CoreDataHolder<Climate> CLIMATES = new CoreDataHolder<Climate>();
 		
 	public static void setUp(){
 		setUpTerrains();
@@ -31,6 +33,7 @@ public class CoreData {
 		setUpTemperatures();
 		setUpWeathers();
 		setUpPluviometries();
+		setUpClimates();
 	}
 	
 	/* public Terrain(Double disembark, Double filtration, Double defenseBonus) */
@@ -196,8 +199,7 @@ public class CoreData {
 			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Clear"), 			0.05d)
 			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.94d)
 			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.04d)
-			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.02d));
-		
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.02d));		
 		PLUVIOMETRIES.put(new Pluviometry("Very Wet")
 			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Snow"), 			0.70d)
 			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Overcast"), 		0.20d)
@@ -225,9 +227,149 @@ public class CoreData {
 			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.79d)
 			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.16d)
 			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.05d));
+		PLUVIOMETRIES.put(new Pluviometry("Wet")
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Snow"), 			0.55d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Overcast"), 		0.25d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Ice"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Snow"), 			0.35d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Rain"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Overcast"),		0.15d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Ice"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Clear"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Snow"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Rain"), 			0.35d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Ice"), 				0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Clear"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Snow"), 			0.10d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Rain"), 			0.44d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Overcast"),		0.26d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Clear"), 			0.18d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Rain"), 		0.80d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Overcast"),	0.10d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Clear"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Clear"), 			0.62d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Rain"), 			0.26d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Overcast"), 		0.12d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.64d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.27d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.09d));
+		PLUVIOMETRIES.put(new Pluviometry("Moderate")
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Snow"), 			0.40d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Overcast"), 		0.30d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Ice"), 			0.30d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Snow"), 			0.25d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Rain"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Overcast"), 		0.20d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Ice"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Clear"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Snow"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Rain"), 			0.25d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Ice"), 				0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Overcast"), 		0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Clear"), 			0.30d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Snow"), 			0.08d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Rain"), 			0.36d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Overcast"),		0.21d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Clear"), 			0.35d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Rain"), 		0.44d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Overcast"),	0.20d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Clear"), 		0.36d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Clear"), 			0.48d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Rain"), 			0.22d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Overcast"), 		0.30d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.49d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.20d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.31d));
+		PLUVIOMETRIES.put(new Pluviometry("Dry")
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Snow"), 			0.25d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Overcast"), 		0.30d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Ice"), 			0.45d)			
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Snow"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Rain"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Overcast"),		0.20d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Ice"), 			0.30d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Clear"), 			0.20d)			
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Snow"), 			0.10d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Rain"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Ice"), 				0.20d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Overcast"), 		0.15d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Clear"), 			0.40d)		
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Snow"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Rain"), 			0.27d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Overcast"),		0.17d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Clear"), 			0.51d)		
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Rain"), 		0.32d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Overcast"),	0.16d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Clear"), 		0.52d)		
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Rain"), 			0.34d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Overcast"), 		0.16d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Clear"), 			0.50d)				
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.34d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.14d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.52d));
+		PLUVIOMETRIES.put(new Pluviometry("Very Dry")
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Snow"), 			0.10d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Overcast"), 		0.20d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Ice"), 			0.70d)			
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Snow"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Rain"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Overcast"), 		0.15d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Ice"), 			0.45d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Clear"), 			0.30d)			
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Snow"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Rain"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Ice"), 				0.30d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Clear"), 			0.50d)					
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Snow"), 			0.03d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Rain"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Overcast"),		0.14d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Clear"), 			0.68d)					
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Rain"), 		0.20d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Overcast"),	0.12d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Clear"), 		0.68d)					
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Rain"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Clear"), 			0.70d)				
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.19d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.09d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.72d));
+		PLUVIOMETRIES.put(new Pluviometry("Extr. Dry")
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Snow"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Polar"), WEATHERS.get("Ice"), 			0.85d)			
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Snow"), 			0.03d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Rain"), 			0.02d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Ice"), 			0.45d)
+			.addWeather(TEMPERATURES.get("Severe"), WEATHERS.get("Clear"), 			0.30d)			
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Snow"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Rain"), 			0.05d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Ice"), 				0.30d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Cold"), WEATHERS.get("Clear"), 			0.50d)					
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Snow"), 			0.03d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Rain"), 			0.15d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Overcast"),		0.14d)
+			.addWeather(TEMPERATURES.get("Fresh"), WEATHERS.get("Clear"), 			0.68d)					
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Rain"), 		0.20d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Overcast"),	0.12d)
+			.addWeather(TEMPERATURES.get("Temperate"), WEATHERS.get("Clear"), 		0.68d)					
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Rain"), 			0.20d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Overcast"), 		0.10d)
+			.addWeather(TEMPERATURES.get("Warm"), WEATHERS.get("Clear"), 			0.70d)				
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Clear"), 			0.19d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Rain"), 				0.09d)
+			.addWeather(TEMPERATURES.get("Hot"), WEATHERS.get("Overcast"), 			0.72d));
 	}
 
-
+	public static void setUpClimates(){
+		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Ver Dry")));
+		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Dry")));
+		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Dry")));
+		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Dry")));
+	}
 
 }
 
