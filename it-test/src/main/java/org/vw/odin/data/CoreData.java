@@ -365,7 +365,7 @@ public class CoreData {
 	}
 
 	public static void setUpClimates(){
-		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Ver Dry")));
+		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Very Dry")));
 		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Dry")));
 		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Dry")));
 		CLIMATES.put(new Climate("EF", "Polar").addSeason(TEMPERATURES.get("Polar"), PLUVIOMETRIES.get("Dry")));

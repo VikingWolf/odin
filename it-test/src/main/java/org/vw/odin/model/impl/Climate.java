@@ -1,5 +1,6 @@
 package org.vw.odin.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.vw.odin.data.core.CoreEntity;
@@ -16,6 +17,8 @@ public class Climate extends CoreEntity {
 	public Climate(String code, String name) {
 		super(code);
 		this.name = name;
+		this.temperatures = new ArrayList<Temperature>();
+		this.pluviometries = new ArrayList<Pluviometry>();
 	}
 
 	public String getName() {
@@ -48,6 +51,14 @@ public class Climate extends CoreEntity {
 		this.temperatures.add(temperature);
 		this.pluviometries.add(pluviometry);
 		return this;
+	}
+	
+	public Temperature getTemperature(final int season){
+		return temperatures.get(season);
+	}
+	
+	public Pluviometry getPluviometry(final int season){
+		return pluviometries.get(season);
 	}
 	
 }

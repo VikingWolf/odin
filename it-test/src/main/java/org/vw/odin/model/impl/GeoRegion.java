@@ -1,5 +1,6 @@
 package org.vw.odin.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.vw.odin.data.core.CoreEntity;
@@ -12,10 +13,11 @@ public class GeoRegion extends CoreEntity {
 	
 	private Climate climate;
 
-	GeoRegion(String id, String name, Climate climate) {
+	public GeoRegion(String id, String name, Climate climate) {
 		super(id);
 		this.name = name;
 		this.climate = climate;
+		body = new ArrayList<Hex>();
 	}
 
 	public String getName() {

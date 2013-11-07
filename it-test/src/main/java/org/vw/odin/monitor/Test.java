@@ -1,34 +1,27 @@
 package org.vw.odin.monitor;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vw.odin.data.CoreData;
+import org.vw.odin.data.SoftData;
 
-public class Test {
+public abstract class Test {
 	
-	protected final static Logger logger = LoggerFactory.getLogger(Test.class);
-	
-	public final static void main(String args[]){
-		Test test = new Test();
-		test.init();
-	}
-
 	public Test(){
-		super();
+		setUpModel();
 	}
-	
-	public void init(){
-		logger.trace("monitor test init at: " + new Date(System.currentTimeMillis()));
-		setUpData();
-	}
-	
-	public void setUpData(){
+
+	public void setUpModel(){
 		CoreData.setUp();
+		SoftData.setUp();
 	}
+
+	public abstract void init();	
 	
-	public void movementTest(){
-		
+	public abstract void test();
+	
+	public Logger logger(){
+		return LoggerFactory.getLogger(this.getClass());
 	}
+
 }

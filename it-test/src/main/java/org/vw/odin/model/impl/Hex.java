@@ -2,9 +2,6 @@ package org.vw.odin.model.impl;
 
 import java.awt.Point;
 
-import org.vw.odin.data.Settings;
-
-
 public class Hex {
 
 	private Point location;
@@ -15,14 +12,14 @@ public class Hex {
 	
 	private SoilState soilState;
 	
+	private double soilMoisture = 0;
 	
-
-	Hex(Point location, Terrain terrain, Vegetation vegetation) {
+	public Hex(Point location, Terrain terrain, Vegetation vegetation, SoilState soilState) {
 		super();
 		this.location = location;
 		this.terrain = terrain;
 		this.vegetation = vegetation;
-		this.soilState = Settings.World.DEFAULT_SOIL_STATE;
+		this.soilState = soilState;
 	}
 
 	public Point getLocation() {
@@ -56,5 +53,13 @@ public class Hex {
 	public void setSoilState(SoilState soilState) {
 		this.soilState = soilState;
 	}
-	
+
+	public double getSoilMoisture() {
+		return soilMoisture;
+	}
+
+	public void setSoilMoisture(double soilMoisture) {
+		this.soilMoisture = soilMoisture;
+	}
+
 }
